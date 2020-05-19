@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
 
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -56,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
                     Toast.makeText(RegisterActivity.this, "All fields are Required", Toast.LENGTH_SHORT).show();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(txt_email).matches()) {
+                    Toast.makeText(RegisterActivity.this, "Valid email required!", Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() > 6) {
                     Toast.makeText(RegisterActivity.this, "Password atleast 6 charcter", Toast.LENGTH_SHORT).show();
                 } else {
@@ -73,8 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
-                        } else {
 
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
@@ -92,6 +94,10 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
+                        } else if (task.getException() instanceof FirebaseAuthUserCollisionException)
+                            Toast.makeText(RegisterActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
