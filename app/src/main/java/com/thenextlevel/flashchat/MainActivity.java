@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
-    Button logout;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -39,13 +38,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        profile_image = (CircleImageView) findViewById(R.id.profile_image);
-        username = (TextView) findViewById(R.id.username);
-        //logout = (Button) findViewById(R.id.btn_logout);
+        profile_image = findViewById(R.id.profile_image);
+        username = findViewById(R.id.username);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -67,14 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(MainActivity.this, StartActivity.class));
-//            }
-//        });
     }
 
     @Override
