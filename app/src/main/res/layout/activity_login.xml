@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center"
     tools:context=".LoginActivity">
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Email"
+        android:hint="email"
         android:inputType="textEmailAddress"
         app:met_floatingLabel="normal" />
 
@@ -31,10 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Password"
+        android:hint="password"
         android:inputType="textPassword"
         app:met_floatingLabel="normal" />
-        //This is test comment
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
