@@ -89,17 +89,60 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("email", email);
                             hashMap.put("imageURL", "default");
 
-                            Toast.makeText(RegisterActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        } else if (task.getException() instanceof FirebaseAuthUserCollisionException)
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        finish();
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+//                            Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+                        } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(RegisterActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
-                        else {
+                        } else {
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
+
+//    private void register(final String email, String password) {
+//        auth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//
+//                            FirebaseUser firebaseUser = auth.getCurrentUser();
+//                            assert firebaseUser != null;
+//                            String userid = firebaseUser.getUid();
+//
+//                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+//
+//                            HashMap<String, String> hashMap = new HashMap<>();
+//                            hashMap.put("id", userid);
+//                            hashMap.put("email", email);
+//                            hashMap.put("imageURL", "default");
+//
+//                            Toast.makeText(RegisterActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            startActivity(intent);
+//                            finish();
+//                        } else if (task.getException() instanceof FirebaseAuthUserCollisionException)
+//                            Toast.makeText(RegisterActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
+//                        else {
+//                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
 }
