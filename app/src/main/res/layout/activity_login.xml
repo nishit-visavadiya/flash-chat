@@ -53,4 +53,5 @@
         android:text="Not Register? Click here"
         android:textColor="@color/colorBlack"
         android:textSize="15sp" />
+
 </LinearLayout>
