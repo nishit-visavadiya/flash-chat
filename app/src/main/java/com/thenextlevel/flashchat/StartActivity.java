@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.View;
 import android.widget.*;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
@@ -45,7 +43,7 @@ public class StartActivity extends AppCompatActivity {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
-            Intent intent = new Intent(StartActivity.this, Main2Activity.class);
+            Intent intent = new Intent(StartActivity.this, GoogleLoginActivity.class);
             startActivity(intent);
         }
     }
@@ -108,7 +106,7 @@ public class StartActivity extends AppCompatActivity {
     private void handleSignInAccount(Task<GoogleSignInAccount> completeTask) {
         try {
             GoogleSignInAccount account = completeTask.getResult(ApiException.class);
-            startActivity(new Intent(StartActivity.this, Main2Activity.class));
+            startActivity(new Intent(StartActivity.this, GoogleLoginActivity.class));
         } catch (ApiException e) {
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
         }

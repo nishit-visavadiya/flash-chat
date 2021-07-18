@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".EmailProfileActivity"></activity>
+        <activity
+            android:name=".GoogleProfileActivity"
+            android:parentActivityName=".GoogleLoginActivity" />
+        <activity android:name=".GoogleLoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />

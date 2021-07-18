@@ -60,12 +60,11 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "All fields are Required", Toast.LENGTH_SHORT).show();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(txt_email).matches()) {
                     Toast.makeText(RegisterActivity.this, "Valid email required!", Toast.LENGTH_SHORT).show();
-                } else if (txt_password.length() > 6) {
+                } else if (txt_password.length() >= 6) {
                     Toast.makeText(RegisterActivity.this, "Password atleast 6 charcter", Toast.LENGTH_SHORT).show();
                 } else {
                     register(txt_email, txt_password);
                 }
-
             }
         });
 
@@ -100,10 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-//                            Toast.makeText(RegisterActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
                         } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(RegisterActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
                         } else {

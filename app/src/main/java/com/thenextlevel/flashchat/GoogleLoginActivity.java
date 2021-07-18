@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,7 +22,7 @@ import com.google.android.gms.tasks.Task;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main2Activity extends AppCompatActivity {
+public class GoogleLoginActivity extends AppCompatActivity {
 
     CircleImageView profile_picture;
     TextView email;
@@ -31,7 +32,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_google_login);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,7 +56,7 @@ public class Main2Activity extends AppCompatActivity {
             //name.setText(personName);
             email.setText(personEmail);
             //id.setText(personId);
-            Glide.with(Main2Activity.this).load(String.valueOf(personPhoto)).into(profile_picture);
+            Glide.with(GoogleLoginActivity.this).load(String.valueOf(personPhoto)).into(profile_picture);
         }
     }
 
@@ -64,7 +65,7 @@ public class Main2Activity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Main2Activity.this, "Sign out done", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GoogleLoginActivity.this, "Sign out done", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -72,7 +73,7 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu2, menu);
+        getMenuInflater().inflate(R.menu.google_login_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -81,12 +82,12 @@ public class Main2Activity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logout:
                 signOut();
-//                startActivity(new Intent(Main2Activity.this, StartActivity.class));
-//                finish();
                 return true;
 
             case R.id.profile:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                Intent googleProfileIntent = new Intent(GoogleLoginActivity.this, GoogleProfileActivity.class);
+                startActivity(googleProfileIntent);
+                finish();
                 return true;
         }
         return false;
